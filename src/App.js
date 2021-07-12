@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import FetchDataFromAPI from './FetchDataFromAPI';
+import Card from './Card';
 
 class App extends React.Component {
 
@@ -27,8 +28,7 @@ class App extends React.Component {
       <div className="App">
         {
           data.map((item, index) => {
-            console.log(item.mission_name);
-            return <h1>{item.mission_name}</h1>;
+            return <Card key={index} launch={item}/>;
           })
         }
       </div>
