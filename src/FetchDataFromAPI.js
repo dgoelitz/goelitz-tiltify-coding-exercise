@@ -46,11 +46,11 @@ const options = {
   body: JSON.stringify({ query })
 };
 
-function fetchGraphQL() {
-  fetch(url, options)
+function FetchDataFromAPI() {
+  const retrieveData = fetch(url, options)
     .then(res => res.json())
-    .then(console.log)
     .catch(console.error);
+  return retrieveData;
 };
 
-export default fetchGraphQL;
+export default FetchDataFromAPI;

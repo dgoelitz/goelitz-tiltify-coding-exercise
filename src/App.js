@@ -1,38 +1,39 @@
 import React from 'react';
 import './App.css';
-import fetchGraphQL from './fetchGraphQL';
+import FetchDataFromAPI from './FetchDataFromAPI';
 
-const { useState, useEffect } = React;
+class App extends React.Component {
 
-function App() {
-  const [name, setName] = useState(null);
+  constructor() {
+    super();
+    this.state = { data: [] };
+  }
 
-  useEffect(() => {
-    let isMounted = true;
-    fetchGraphQL().then(response => {
-      if (!isMounted) {
-        return;
-      }
-      //const data = response.data;
-      //console.log(data);
-      //setName(data.repository.name);
-    }).catch(error => {
-      console.error(error);
-    });
+  componentDidMount() {
+    FetchDataFromAPI()
+      .then(response => {
+        console.log('retrieved!', response.data.launchesPast);
+        this.setState({ data: response.data.launchesPast });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
-    return () => {
-      isMounted = false;
-    };
-  }, [fetchGraphQL]);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-        </p>
-      </header>
-    </div>
-  );
+  render() {
+    const { data } = this.state;
+    console.log(data);
+    return (
+      <div className="App">
+        {
+          data.map((item, index) => {
+            console.log(item.mission_name);
+            return <h1>{item.mission_name}</h1>;
+          })
+        }
+      </div>
+    );
+  }
 }
 
 export default App;
