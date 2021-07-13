@@ -13,7 +13,6 @@ class App extends React.Component {
   componentDidMount() {
     FetchDataFromAPI()
       .then(response => {
-        console.log('retrieved!', response.data.launchesPast);
         this.setState({ data: response.data.launchesPast });
       })
       .catch(error => {
@@ -23,7 +22,6 @@ class App extends React.Component {
 
   render() {
     const { data } = this.state;
-    console.log(data);
     return (
       <div className="App">
         {
